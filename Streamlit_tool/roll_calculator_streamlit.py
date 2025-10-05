@@ -22,10 +22,18 @@ st.set_page_config(page_title='工程計算工具集', layout='wide')
 # 側邊欄選單
 with st.sidebar:
     st.title('工具選單')
-    tool = st.radio(
-        '選擇工具',
-        ['捲材計算器']
-    )
+
+    if st.button('捲材計算器', use_container_width=True):
+        st.session_state.tool = '捲材計算器'
+    if st.button('other1', use_container_width=True):
+        st.session_state.tool = 'other1'
+    if st.button('other2', use_container_width=True):
+        st.session_state.tool = 'other2'
+
+    if 'tool' not in st.session_state:
+        st.session_state.tool = '捲材計算器'
+
+    tool = st.session_state.tool
 
 # 捲材計算器
 if tool == '捲材計算器':
@@ -120,3 +128,9 @@ if tool == '捲材計算器':
         st.divider()
         st.metric('成品總重', f'{total_weight / 1000:.3f} kg',
                   delta=f'{(total_weight - core_weight) / 1000:.3f} kg (不含{core_type})')
+
+if tool == 'other1':
+    st.title('other1')
+
+if tool == 'other2':
+    st.title('other2')
